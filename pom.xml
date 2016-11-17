@@ -23,6 +23,7 @@
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-mllib_2.10</artifactId>
             <version>1.6.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -53,7 +54,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass></mainClass>
+                            <mainClass>com.weibo.yuanye.gbdt.GbdtTrain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -69,4 +70,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
