@@ -44,6 +44,36 @@ public class GbdtTrain {
         JavaRDD<LabeledPoint> trainData = splits[0];
         JavaRDD<LabeledPoint> testData = splits[1];
 
+        trainData.map(new Function<LabeledPoint, String>() {
+            int index = 1;
+            public String call(LabeledPoint p) throws Exception {
+                StringBuilder sb = new StringBuilder();
+                int label = (int)p.label();
+                sb.append(label).append(" ");
+                for (double d : p.features().toArray()) {
+                    sb.append(index).append(":").append(d).append(" ");
+                    index ++;
+                }
+                index = 1;
+                return sb.deleteCharAt(sb.length() - 1).toString();
+            }
+        }).saveAsTextFile("/user/weibo_bigdata_dm/yuanye/data/gbdt/traindata");
+
+        testData.map(new Function<LabeledPoint, String>() {
+            int index = 1;
+            public String call(LabeledPoint p) throws Exception {
+                StringBuilder sb = new StringBuilder();
+                int label = (int)p.label();
+                sb.append(label).append(" ");
+                for (double d : p.features().toArray()) {
+                    sb.append(index).append(":").append(d).append(" ");
+                    index ++;
+                }
+                index = 1;
+                return sb.deleteCharAt(sb.length() - 1).toString();
+            }
+        }).saveAsTextFile("/user/weibo_bigdata_dm/yuanye/data/gbdt/testdata");
+
         BoostingStrategy boostingStrategy = BoostingStrategy.defaultParams("Classification");
         boostingStrategy.setNumIterations(30);
         boostingStrategy.getTreeStrategy().setNumClasses(2);
